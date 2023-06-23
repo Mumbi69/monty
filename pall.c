@@ -1,14 +1,14 @@
 #include "monty.h"
 
 /**
-* pall - print values of stack
-* @stack: double pointer to head
+* m_pall - print all values on stack
+* @stack: double pointer
 * @line_number: line number being executed
 *
 * Return: nothing
 */
 
-void pall(stack_t **stack, unsigned int line_number)
+void m_pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *head;
 
