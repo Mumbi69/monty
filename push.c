@@ -1,6 +1,4 @@
 #include "monty.h"
-#include <ctype.h>
-
 
 /**
 * push - push an integer onto the stack
@@ -12,37 +10,36 @@
 
 void push(stack_t **stack, unsigned int line_number)
 {
-	char *arg;
-	int n;
+    stack_t *new_node = NULL;
+    char *token = NULL;
+    int n = 0;
 
-	arg = strtok(NULL, "\n\t\r ");
-	if (arg == NULL || check_for_digit(arg))
-	{
-		dprintf(STDOUT_FILENO,
-			"L%u: usage: push integer\n",
-			line_number);
-		exit(EXIT_FAILURE);
-	}
-	n = atoi(arg);
-	push2(stack, n);
-}
+    token = strtok(NULL, " \n\t\r");
+    if (token == NULL)
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", line_number);
+        exit(EXIT_FAILURE);
+    }
 
-/**
-* check_for_digit - checks that a string only contains digits
-* @arg: string to check
-*
-* Return: 0 if only digits, else 1
-*/
+    n = atoi(token);
+    if (n == 0 && strcmp(token, "0") != 0)
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", line_number);
+        exit(EXIT_FAILURE);
+    }
 
-static int check_for_digit(char *arg)
-{
-	int i;
+    new_node = malloc(sizeof(stack_t));
+    if (new_node == NULL)
+    {
+        fprintf(stderr, "Error: malloc failed\n");
+        free_stack(*stack);
+        exit(EXIT_FAILURE);
+    }
 
-	for (i = 0; arg[i]; i++)
-	{
-		if (arg[i] == '-' && i == 0)
-			continue;
-		if (isdigit(arg[i]) == 0)
-			return (1);
-	return (0);
+    new_node->n = n;
+    new_node->prev = NULL;
+    new_node->next = *stack;
+    if (*stack != NULL)
+        (*stack)->prev = new_node;
+    *stack = new_node;
 }
