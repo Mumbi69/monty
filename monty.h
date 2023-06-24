@@ -43,6 +43,12 @@ typedef struct instruction_s
 
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
-int main(int argc, char *argv[]);
+void (*get_op_func(char *opcode))(stack_t **stack, unsigned int line_number);
+int main(void);
+
+
+
+
 
 #endif
+
