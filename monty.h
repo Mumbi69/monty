@@ -10,6 +10,25 @@
 #include <unistd.h>
 
 /**
+* var_m - structure containing global variables for monty
+* @queue: flag - determines whether in stack or queue
+* @stack_len: length of stack
+*
+*/
+
+typedef struct var_m
+{
+	int queue;
+	size_t stack_len;
+} var_t;
+
+#define STACK 0
+#define QUEUE 1
+
+/* global struct to hold flag for queue and stack length */
+extern var_t my_var;
+
+/**
 * struct stack_s - doubly linked list representation of a stack (or queue)
 * @n: integer
 * @prev: points to the previous element of the stack (or queue)
@@ -44,10 +63,8 @@ typedef struct instruction_s
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void (*get_op_func(char *opcode))(stack_t **stack, unsigned int line_number);
-int main(void);
-
-
-
+void pint(stack_t **stack, unsigned int line_number);
+int main(int argc, char *argv[]);
 
 
 #endif
